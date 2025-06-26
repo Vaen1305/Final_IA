@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23f08d2ae4cba14087c1ed36193d82b, type: 3}
+  m_Name: GuardParameters
+  m_EditorClassIdentifier: 
+  mBehaviorSource:
+    behaviorName: Guard
+    behaviorDescription: 
+    mTaskData:
+      types: []
+      parentIndex: 
+      startIndex: 
+      variableStartIndex: 
+      JSONSerialization: '{"EntryTask":{"Type":"BehaviorDesigner.Runtime.Tasks.EntryTask","NodeData":{"Offset":"(312.3556,266.2417)"},"ID":0,"Name":"Entry","Instant":true},"RootTask":{"Type":"BehaviorDesigner.Runtime.Tasks.Repeater","NodeData":{"Offset":"(-4.166626,108.333618)"},"ID":1,"Name":"Repeater","Instant":true,"SharedIntcount":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":null,"Int32mValue":0},"SharedBoolrepeatForever":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedBoolendOnFailure":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Selector","NodeData":{"Offset":"(-6.10351563E-05,120)"},"ID":2,"Name":"Selector","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-666.711853,160.472672)"},"ID":3,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"ActionViewEnemy","NodeData":{"Offset":"(-200,166.129028)"},"ID":4,"Name":"Action
+        View Enemy","Instant":true},{"Type":"ActionDistanceColliderAttack","NodeData":{"Offset":"(-10,160)"},"ID":5,"Name":"Action
+        Distance Collider Attack","Instant":true,"SingledistanceOneLand":0},{"Type":"ActionAttack","NodeData":{"Offset":"(166.111115,160)"},"ID":6,"Name":"Action
+        Attack","Instant":true}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-75.9657745,161.490112)"},"ID":7,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"ActionViewEnemy","NodeData":{"Offset":"(-220.861588,152.18988)"},"ID":8,"Name":"Action
+        View Enemy","Instant":true},{"Type":"ActionDistanceColliderFire","NodeData":{"Offset":"(-31.5384674,163.308517)"},"ID":9,"Name":"Action
+        Distance Collider Fire","Instant":true,"SingledistanceOneLand":0},{"Type":"ActionShootAttack","NodeData":{"Offset":"(145.923141,150.898056)"},"ID":10,"Name":"Action
+        Shoot Attack","Instant":true}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(469.743835,180)"},"ID":11,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"ActionViewEnemy","NodeData":{"Offset":"(-88.71796,130)"},"ID":12,"Name":"Action
+        View Enemy","Instant":true},{"Type":"ActionNotDistanceColliderFire","NodeData":{"Offset":"(-0.499982834,225.929977)"},"ID":13,"Name":"Action
+        Not Distance Collider Fire","Instant":true,"SingledistanceOneLand":0},{"Type":"ActionFollowEnemy","NodeData":{"Offset":"(96.93591,133.622253)"},"ID":14,"Name":"Action
+        Follow Enemy","Instant":true}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(915.947754,166.560623)"},"ID":15,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"ActionNotViewEnemy","NodeData":{"Offset":"(-96.72616,125.868431)"},"ID":16,"Name":"Action
+        Not View Enemy","Instant":true},{"Type":"ActionBackHomePosition","NodeData":{"Offset":"(103.809525,128.095245)"},"ID":17,"Name":"Action
+        Back Home Position","Instant":true}]}]}]}}'
+      fieldSerializationData:
+        typeName: []
+        fieldNameHash: 
+        startIndex: 
+        dataPosition: 
+        unityObjects: []
+        byteData: 
+        byteDataArray: 
+      Version: 1.6.8
