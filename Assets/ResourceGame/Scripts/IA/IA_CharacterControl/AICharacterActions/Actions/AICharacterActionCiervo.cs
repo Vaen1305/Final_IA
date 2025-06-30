@@ -12,7 +12,8 @@ public class AICharacterActionCiervo : AICharacterActionLand
         var healthCiervo = health as HealthCiervo;
         if (healthCiervo != null)
         {
-            healthCiervo.RegenerateStamina(Time.deltaTime);
+            // Ya no usar stamina - el nuevo sistema maneja esto automáticamente
+            Debug.Log($"😴 Ciervo descansando - Hambre: {healthCiervo.hunger:F1} | Sueño: {healthCiervo.sleepiness:F1}");
         }
     }
     

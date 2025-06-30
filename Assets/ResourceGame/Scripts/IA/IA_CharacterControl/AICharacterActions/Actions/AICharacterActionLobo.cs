@@ -28,7 +28,8 @@ public class AICharacterActionLobo : AICharacterActionLand
         var healthLobo = health as HealthLobo;
         if (healthLobo != null)
         {
-            healthLobo.RegenerateStamina(Time.deltaTime);
+            // Ya no usar stamina - el nuevo sistema maneja esto automáticamente
+            Debug.Log($"😴 Lobo durmiendo - Hambre: {healthLobo.hunger:F1} | Sueño: {healthLobo.sleepiness:F1}");
         }
     }
 }

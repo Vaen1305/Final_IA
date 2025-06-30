@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AICharacterVehicleCiervo : AICharacterVehicleLand
 {
@@ -13,23 +14,46 @@ public class AICharacterVehicleCiervo : AICharacterVehicleLand
         var healthCiervo = health as HealthCiervo;
         if (healthCiervo != null)
         {
-            healthCiervo.DepleteStamina(Time.deltaTime);
+            // No consumir recursos extra al huir - el huir es una acción de supervivencia
+            // Solo modificar velocidad si es necesario
+            if (Agent != null)
+            {
+                Agent.speed = 6f; // Velocidad de huida rápida
+            }
+            Debug.Log($"🏃 Ciervo huyendo - Hambre: {healthCiervo.hunger:F1} | Sueño: {healthCiervo.sleepiness:F1}");
+        }
+    }
+
+    public override void Wander()
+    {
+        base.Wander();
+        var healthCiervo = health as HealthCiervo;
+        if (healthCiervo != null)
+        {
+            // Velocidad normal para deambular
+            if (Agent != null)
+            {
+                Agent.speed = 3.5f; // Velocidad normal
+            }
+            
+            // El deambular no consume recursos adicionales - eso se maneja en HealthCiervo.Update()
+            Debug.Log($"🚶 Ciervo deambulando - Hambre: {healthCiervo.hunger:F1} | Sueño: {healthCiervo.sleepiness:F1}");
         }
     }
 
     public void StopMoving()
     {
-        if (agent.isOnNavMesh)
+        if (Agent != null && Agent.isOnNavMesh)
         {
-            agent.isStopped = true;
+            Agent.isStopped = true;
         }
     }
 
     public void ResumeMoving()
     {
-        if (agent.isOnNavMesh)
+        if (Agent != null && Agent.isOnNavMesh)
         {
-            agent.isStopped = false;
+            Agent.isStopped = false;
         }
     }
 }

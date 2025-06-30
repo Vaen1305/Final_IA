@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AICharacterVehicleLobo : AICharacterVehicleLand
 {
@@ -13,7 +14,8 @@ public class AICharacterVehicleLobo : AICharacterVehicleLand
         var healthLobo = health as HealthLobo;
         if (healthLobo != null)
         {
-            healthLobo.DepleteStamina(Time.deltaTime);
+            // Ya no usar stamina - el nuevo sistema maneja esto automáticamente
+            Debug.Log($"🐺 Lobo cazando - Hambre: {healthLobo.hunger:F1} | Sueño: {healthLobo.sleepiness:F1}");
         }
     }
 

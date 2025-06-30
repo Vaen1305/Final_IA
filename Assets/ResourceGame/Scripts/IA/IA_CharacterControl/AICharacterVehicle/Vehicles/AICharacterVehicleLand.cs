@@ -6,6 +6,10 @@ using UnityEngine.AI;
 public class AICharacterVehicleLand : AICharacterVehicle
 {
     protected NavMeshAgent agent;
+    
+    // Override de la propiedad virtual del padre
+    public override NavMeshAgent Agent => agent;
+    
     public float rangeWander = 10.0f;
     public Vector3 pointWander = Vector3.zero;
     public Vector3 positionEvade = Vector3.zero;

@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AICharacterVehicle : AICharacterControl
 {
+    // Propiedad virtual que debe ser implementada por las clases derivadas
+    public virtual NavMeshAgent Agent => null;
     
     public override void LoadComponent()
     {

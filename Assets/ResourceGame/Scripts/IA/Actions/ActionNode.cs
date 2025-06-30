@@ -45,4 +45,14 @@ public class ActionNode : Action
         }
         base.OnStart();
     }
+
+    public override TaskStatus OnUpdate()
+    {
+        // Verificar que el objeto siga vivo
+        if (MyHealth != null && MyHealth.IsDead)
+        {
+            return TaskStatus.Failure;
+        }
+        return TaskStatus.Success;
+    }
 }
