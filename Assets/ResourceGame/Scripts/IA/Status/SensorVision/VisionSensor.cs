@@ -32,6 +32,12 @@ public class DataViewBase
     
     public DataViewBase()
     { }
+    
+    public virtual void CreateMesh()
+    {
+        mesh = CreateMeshVision();
+    }
+    
     public virtual bool IsInSight(Transform enemyAimOffset)
     {
         this.InSight = false;
@@ -66,17 +72,11 @@ public class DataViewBase
             return this.InSight;
         }
 
-
-
-
         this.InSight = true;
         return this.InSight;
     }
-    public void CreateMesh()
-    {
-        mesh = CreateWedgeMesh();
-    }
-    Mesh CreateWedgeMesh()
+    
+    Mesh CreateMeshVision()
     {
         Mesh mesh = new Mesh();
         int segments = 10;

@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class AICharacterActionLand : AICharacterAction
 {
-    protected WeaponsManager _weaponsManager;
     public override void LoadComponent()
     {
         base.LoadComponent();
     }
 
     #region Action
-    public virtual void FirePlay()
+    // Métodos básicos para acciones de animales terrestres
+    public virtual void Rest()
     {
-        _weaponsManager.Fire();
+        // Implementación básica de descanso
     }
-    public virtual void StopFire()
+    
+    public virtual void Eat()
     {
-        _weaponsManager.StopFire();
+        // Implementación básica de comer
     }
     #endregion
 }

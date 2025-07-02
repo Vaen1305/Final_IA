@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HealthJabali : HealthHuman
+public class HealthJabali : Health
 {
     [Header("Territorio")]
     public Vector3 territoryCenter;
@@ -167,6 +167,30 @@ public class HealthJabali : HealthHuman
     public override void LoadComponent()
     {
         base.LoadComponent();
+        
+        // Configurar AimOffset si no está asignado
+        if (AimOffset == null)
+        {
+            // Buscar un transform hijo llamado "AimOffset" o crear uno
+            Transform aimOffsetChild = transform.Find("AimOffset");
+            if (aimOffsetChild == null)
+            {
+                // Crear AimOffset automáticamente
+                GameObject aimOffsetGO = new GameObject("AimOffset");
+                aimOffsetGO.transform.SetParent(transform);
+                aimOffsetGO.transform.localPosition = Vector3.up * 1.0f; // A la altura de los ojos del jabalí
+                AimOffset = aimOffsetGO.transform;
+                Debug.Log($"✅ {gameObject.name}: AimOffset creado automáticamente");
+            }
+            else
+            {
+                AimOffset = aimOffsetChild;
+            }
+        }
+        
+        // Configurar tipo de agente
+        typeAgent = TypeAgent.Jabali;
+        
         // El centro del territorio es su posición inicial
         territoryCenter = transform.position;
         

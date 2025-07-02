@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HealthLobo : HealthHuman
+public class HealthLobo : Health
 {
     [Header("Necesidades Básicas")]
     public float hunger = 0f; // 0 = sin hambre, 100 = mucha hambre
@@ -99,12 +99,6 @@ public class HealthLobo : HealthHuman
         }
     }
     
-    public void Hunt()
-    {
-        IsHunting = true;
-        Debug.Log($"🎯 {gameObject.name}: Cazando ciervo...");
-    }
-    
     public void EatPrey()
     {
         // Cuando atrapa un ciervo, reduce hambre significativamente
@@ -126,12 +120,24 @@ public class HealthLobo : HealthHuman
         IsSleeping = false;
         IsAvoidingJabali = false;
         Debug.Log($"🎯 {gameObject.name}: EMPEZANDO A CAZAR!");
+        
+        // Cambiar velocidad si tiene el componente vehiculo
+        if (vehicleLobo != null && vehicleLobo.Agent != null)
+        {
+            vehicleLobo.Agent.speed = huntSpeed;
+        }
     }
     
     public void StopHunting()
     {
         IsHunting = false;
         Debug.Log($"🛑 {gameObject.name}: DETENIENDO CAZA");
+        
+        // Restaurar velocidad normal
+        if (vehicleLobo != null && vehicleLobo.Agent != null)
+        {
+            vehicleLobo.Agent.speed = normalSpeed;
+        }
     }
     
     public void StartAvoidingJabali()
@@ -157,6 +163,30 @@ public class HealthLobo : HealthHuman
     public override void LoadComponent()
     {
         base.LoadComponent();
+        
+        // Configurar AimOffset si no está asignado
+        if (AimOffset == null)
+        {
+            // Buscar un transform hijo llamado "AimOffset" o crear uno
+            Transform aimOffsetChild = transform.Find("AimOffset");
+            if (aimOffsetChild == null)
+            {
+                // Crear AimOffset automáticamente
+                GameObject aimOffsetGO = new GameObject("AimOffset");
+                aimOffsetGO.transform.SetParent(transform);
+                aimOffsetGO.transform.localPosition = Vector3.up * 1.5f; // A la altura de los ojos
+                AimOffset = aimOffsetGO.transform;
+                Debug.Log($"✅ {gameObject.name}: AimOffset creado automáticamente");
+            }
+            else
+            {
+                AimOffset = aimOffsetChild;
+            }
+        }
+        
+        // Configurar tipo de agente
+        typeAgent = TypeAgent.Lobo;
+        
         // Inicializar con valores base
         hunger = 25f;
         sleepiness = 20f;

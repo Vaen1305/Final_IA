@@ -37,23 +37,26 @@ public class AICharacterVehicleLand : AICharacterVehicle
     {
         if (_VisionSensor.EnemyView == null) return;
         LookToEnemy();
-        agent.SetDestination(_VisionSensor.EnemyView.transform.position);
+        if (agent != null && agent.isOnNavMesh)
+        {
+            agent.SetDestination(_VisionSensor.EnemyView.transform.position);
+        }
     }
 
     public override void MoveToAllied()
     {
         if (_VisionSensor.AlliedView == null) return;
         LookToPosition(_VisionSensor.AlliedView.transform.position);
-        agent.SetDestination(_VisionSensor.AlliedView.transform.position);
+        if (agent != null && agent.isOnNavMesh)
+        {
+            agent.SetDestination(_VisionSensor.AlliedView.transform.position);
+        }
     }
 
     public override void MoveToResource()
     {
-        VisionSensorCivil visionSensorCivil = _VisionSensor as VisionSensorCivil;
-        if (visionSensorCivil != null && visionSensorCivil.ResourceView != null)
-        {
-            this.MoveToPosition(visionSensorCivil.ResourceView.transform.position);
-        }
+        // Método simplificado para animales - no necesitan recursos específicos
+        Debug.Log("MoveToResource: No implementado para animales");
     }
 
     public override void MoveToPosition(Vector3 position)
@@ -61,7 +64,10 @@ public class AICharacterVehicleLand : AICharacterVehicle
         NavMeshHit hit;
         if (NavMesh.SamplePosition(position, out hit, 50, NavMesh.AllAreas))
         {
-            agent.SetDestination(position);
+            if (agent != null && agent.isOnNavMesh)
+            {
+                agent.SetDestination(position);
+            }
         }
     }
 

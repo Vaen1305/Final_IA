@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HealthCiervo : HealthHuman
+public class HealthCiervo : Health
 {
     [Header("Necesidades Básicas")]
     public float hunger = 0f; // 0 = sin hambre, 100 = mucha hambre
@@ -137,6 +137,30 @@ public class HealthCiervo : HealthHuman
     public override void LoadComponent()
     {
         base.LoadComponent();
+        
+        // Configurar AimOffset si no está asignado
+        if (AimOffset == null)
+        {
+            // Buscar un transform hijo llamado "AimOffset" o crear uno
+            Transform aimOffsetChild = transform.Find("AimOffset");
+            if (aimOffsetChild == null)
+            {
+                // Crear AimOffset automáticamente
+                GameObject aimOffsetGO = new GameObject("AimOffset");
+                aimOffsetGO.transform.SetParent(transform);
+                aimOffsetGO.transform.localPosition = Vector3.up * 1.2f; // A la altura de los ojos del ciervo
+                AimOffset = aimOffsetGO.transform;
+                Debug.Log($"✅ {gameObject.name}: AimOffset creado automáticamente");
+            }
+            else
+            {
+                AimOffset = aimOffsetChild;
+            }
+        }
+        
+        // Configurar tipo de agente
+        typeAgent = TypeAgent.Ciervo;
+        
         // Inicializar con valores base
         hunger = 20f;
         sleepiness = 15f;

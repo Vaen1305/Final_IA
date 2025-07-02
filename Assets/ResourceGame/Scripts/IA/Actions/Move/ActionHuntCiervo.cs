@@ -84,7 +84,7 @@ public class ActionHuntCiervo : ActionNodeVehicle
             }
             
             // Perseguir al ciervo
-            if (_AICharacterVehicle.Agent != null)
+            if (_AICharacterVehicle.Agent != null && _AICharacterVehicle.Agent.isOnNavMesh)
             {
                 _AICharacterVehicle.Agent.SetDestination(targetCiervo.position);
                 
@@ -92,6 +92,10 @@ public class ActionHuntCiervo : ActionNodeVehicle
                 {
                     Debug.Log($"🏃 {gameObject.name}: Persiguiendo ciervo (Dist: {distanceToCiervo:F1}m)");
                 }
+            }
+            else
+            {
+                Debug.LogWarning($"⚠️ {gameObject.name}: NavMeshAgent no disponible para caza");
             }
             
             return TaskStatus.Running;

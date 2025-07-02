@@ -3,58 +3,59 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-public enum TypeAgent { Soldier, Zombie, Civil,Guard, Resources, Accommodation, Ciervo, Lobo, Jabali}
+public enum TypeAgent { Ciervo, Lobo, Jabali}
+
 public class Health : MonoBehaviour
 {
-    public int health=0;
-    public int healthMax= 100;
-    public Image healthBar;
-
-    public TypeAgent typeAgent;
-    public TypeAgent[] typeAgentAllies;
-
-    public Transform AimOffset;
-
+    [Header("Health Config")]
+    public int maxHealth = 100;
+    public int currentHealth;
+    public bool IsDead { get { return currentHealth == 0; } }
     
-    public UnityEvent DeadEvent;
-    public UnityEvent BonusEvent;
-    public bool IsDead { get => health <= 0; }
-    public Bonus _bonus;
-    public bool Inmortal;
-    public void UpdabeHEalthBar()
-    {
-        healthBar.fillAmount = ((float)health / (float)healthMax);
-    }
+    [Header("Agent Config")]
+    public TypeAgent typeAgent;
+    public Transform AimOffset;
+    public TypeAgent[] typeAgentAllies = new TypeAgent[0]; // Array de aliados
+    
+    // Propiedades de compatibilidad
+    public int health { get { return currentHealth; } set { currentHealth = value; } }
+    public int healthMax { get { return maxHealth; } set { maxHealth = value; } }
+
+    [Header("Unity Events")]
+    public UnityEvent OnHealthChanges;
+    public UnityEvent OnDead;
+
+    protected AICharacterControl _AICharacterControl;
+
     public virtual void LoadComponent()
     {
-        health = healthMax;
-        _bonus = GetComponent<Bonus>();
+        _AICharacterControl = GetComponent<AICharacterControl>();
+        currentHealth = maxHealth;
     }
+
     public virtual void DoDamage(int dmg, Health hit)
     {
-        if (Inmortal) return;
-        if (IsDead) return;
-        health = Mathf.Clamp(health - dmg, 0, healthMax);
-
-        UpdabeHEalthBar();
         if (IsDead)
         {
-            hit._bonus.AddBonus(_bonus);
-            _bonus.Point = 0;
-            _bonus.UpdabeHEalthBar();
-            hit.EventBonusDead();
-            Dead();
+            return;
         }
-         
-    }
-    public virtual void Dead()
-    {
-        DeadEvent?.Invoke();
-        Destroy(this.gameObject, 3);
-    }
-    public void EventBonusDead()
-    {
 
-        BonusEvent?.Invoke();
+        currentHealth -= dmg;
+        if (currentHealth < 0)
+        {
+            currentHealth = 0;
+        }
+        OnHealthChanges?.Invoke();
+
+        if (IsDead)
+        {
+            OnDead?.Invoke();
+        }
+    }
+
+    public virtual void ResetHealth()
+    {
+        currentHealth = maxHealth;
+        OnHealthChanges?.Invoke();
     }
 }
